@@ -1,6 +1,11 @@
 .popup__icon-close {
   grid-area: btn;
   cursor: pointer;
+  background: transparent url(../../../images/icon-close.svg);
+  border: none;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
   transition: opacity .3s ease;
 }
 

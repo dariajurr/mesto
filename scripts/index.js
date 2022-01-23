@@ -1,7 +1,7 @@
 let popup = document.querySelector('.popup');
 let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_name');
-let jobInput = document.querySelector('.popup__input_job');
+let nameInput = document.querySelector('.popup__input_val_name');
+let jobInput = document.querySelector('.popup__input_val_job');
 let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__subtitle');
 
@@ -23,6 +23,8 @@ document.body.addEventListener('click', function popupToggle (event) {
   let target = event.target;
 
   if (target.matches('.profile__edit-btn')) {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
     popup.classList.add('popup_opened');
   }
 

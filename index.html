@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages/index.css">
   <title>Mesto Russia</title>
-  <script src="scripts/index.js" defer></script>
 </head>
 <body class="root">
   <header class="header">
@@ -18,52 +17,52 @@
     <img src="images/profile_photo.jpg" class="profile__img" alt="Жак-Ив Кусто">
     <div class="profile__info">
       <h1 class="profile__title">Жак-Ив Кусто</h1>
-      <button class="profile__edit-btn"></button>
+      <button type="button" class="profile__edit-btn"></button>
       <p class="profile__subtitle">Исследователь океана</p>
     </div>
-    <button class="profile__add-btn"></button>
+    <button type="button" class="profile__add-btn"></button>
   </section>
   <section class="elements">
     <article class="element">
       <img class="element__img" src="images/element-karashaevsk.jpg" alt="здание в городе Карачаевск">
         <div class="element__info">
           <h2 class="element__title">Карачаевск</h2>
-          <span class="element__icon"></span>
+          <button type="button" class="element__icon"></button>
         </div>
     </article>
     <article class="element">
       <img class="element__img" src="images/element-elbrus.jpg" alt="вид на Эльбрус">
       <div class="element__info">
         <h2 class="element__title">Гора Эльбрус</h2>
-        <img src="images/icon-like.svg" class="element__icon" alt="иконка сердца">
+        <button type="button" class="element__icon"></button>
       </div>
     </article>
     <article class="element">
       <img class="element__img" src="images/element-dombai.jpg" alt="вид на Домбай">
       <div class="element__info">
         <h2 class="element__title">Домбай</h2>
-        <img src="images/icon-like.svg" class="element__icon" alt="иконка сердца">
+        <button type="button" class="element__icon"></button>
       </div>
     </article>
     <article class="element">
       <img class="element__img" src="images/element-elbrus.jpg" alt="вид на Эльбрус">
       <div class="element__info">
         <h2 class="element__title">Гора Эльбрус</h2>
-        <img src="images/icon-like.svg" class="element__icon" alt="иконка сердца">
+        <button type="button" class="element__icon"></button>
       </div>
     </article>
     <article class="element">
       <img class="element__img" src="images/element-dombai.jpg" alt="вид на Домбай">
       <div class="element__info">
         <h2 class="element__title">Домбай</h2>
-        <img src="images/icon-like.svg" class="element__icon" alt="иконка сердца">
+        <button type="button" class="element__icon"></button>
       </div>
     </article>
     <article class="element">
       <img class="element__img" src="images/element-karashaevsk.jpg" alt="Карачаево-Черкесия">
       <div class="element__info">
         <h2 class="element__title">Карачаево-Черкесия</h2>
-        <img src="images/icon-like.svg" class="element__icon" alt="иконка сердца">
+        <button type="button" class="element__icon"></button>
       </div>
     </article>
   </section>
@@ -72,14 +71,15 @@
   </footer>
   <section class="popup">
     <div class="popup__container">
-      <img src="images/icon-close.svg" alt="иконка закрытия окна" class="popup__icon-close">
-      <form class="popup__form">
+      <button type="button" class="popup__icon-close"></button>
+      <form name="profile-info" class="popup__form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__input popup__input_job" value="Исследователь океана">
+        <input type="text" class="popup__input popup__input_val_name" value="Жак-Ив Кусто">
+        <input type="text" class="popup__input popup__input_val_job" value="Исследователь океана">
         <input type="submit" value="Сохранить" class="popup__btn">
       </form>
     </div>
   </section>
+  <script src="scripts/index.js"></script>
 </body>
 </html>

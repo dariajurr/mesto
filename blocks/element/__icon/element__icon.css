@@ -1,7 +1,8 @@
 .element__icon {
-  display: inline-block;
   width: 22px;
   height: 19px;
+  border: none;
+  padding: 0;
   cursor: pointer;
   background: url(../../../images/icon-like.svg);
   transition: opacity .3s ease;

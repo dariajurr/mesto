@@ -5,14 +5,16 @@
   column-gap: 18px;
   row-gap: 16px;
   grid-template-areas: 
-  "title btn"
-  "subtitle .";
-  padding-left: 30px;
+  "title btn ."
+  "subtitle . .";
+  padding-left: 30px;  
 }
 
 @media screen and (max-width: 773px) {
   .profile__info {
     padding: 26px 0 36px;
+    max-width: 282px;
+    text-align: center;
     column-gap: 10px;
     row-gap: 14px;
     grid-template-areas: 
