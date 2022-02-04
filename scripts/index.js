@@ -8,6 +8,9 @@ const elementPopup = document.querySelector('form[name="element"]').closest('.po
 const elementInputName = document.querySelector('.popup__input_val_title');
 const elementInputLink = document.querySelector('.popup__input_val_link');
 const elementTemplate = document.querySelector('#element').content;
+const imagePopup = document.querySelector('.image-popup');
+const imagePopupImg = imagePopup.querySelector('.image-popup__img');
+const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
 
 const initialCards = [
   {
@@ -39,6 +42,7 @@ const initialCards = [
 const renderElement = (element) => {
     const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
     elementItem.querySelector('.element__img').src=element.link;
+    elementItem.querySelector('.element__img').alt = element.name;
     elementItem.querySelector('.element__title').textContent=element.name;
     elements.prepend(elementItem);
 };
@@ -67,22 +71,46 @@ document.body.addEventListener('submit', event => {
 document.body.addEventListener('click', event => {
   const target = event.target;
 
+  //открытие popup редактирования профиля
   if (target.matches('.profile__edit-btn')) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
     profilePopup.classList.add('popup_opened');
   }
 
-  if (target.matches('.profile__add-btn')) {
-    elementPopup.classList.add('popup_opened');
-  }
-
+  //закрытие popup
   if (target.matches('.popup__icon-close') || target.matches('.popup')) {
     target.closest('.popup').classList.remove('popup_opened');
   }
 
+  //like
   if(target.matches('.element__icon')) {
     target.classList.toggle('element__icon-active');
+  }
+
+  //delete
+  if(target.matches('.element__delete')) {
+    target.closest('.element').remove();
+  }
+
+  //открытие popup добавления фото
+  if (target.matches('.profile__add-btn')) {
+    elementInputName.value = '';
+    elementInputLink.value = '';
+    elementPopup.classList.add('popup_opened');
+  }
+
+  //открытие popup фото
+  if(target.matches('.element__img')) {
+    imagePopupImg.src = target.src;
+    imagePopupImg.alt = target.alt;
+    imagePopupTitle.textContent = target.alt;
+    imagePopup.classList.add('image-popup_opened');
+  }
+
+   //закрытие popup
+  if (target.matches('.image-popup__icon-close') || target.matches('.image-popup')) {
+    target.closest('.image-popup').classList.remove('image-popup_opened');
   }
 });
 

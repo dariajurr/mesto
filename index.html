@@ -23,48 +23,6 @@
     <button type="button" class="profile__add-btn"></button>
   </section>
   <section class="elements">
-    <!--<article class="element">
-      <img class="element__img" src="images/element-karashaevsk.jpg" alt="здание в городе Карачаевск">
-        <div class="element__info">
-          <h2 class="element__title">Карачаевск</h2>
-          <button type="button" class="element__icon"></button>
-        </div>
-    </article>
-    <article class="element">
-      <img class="element__img" src="images/element-elbrus.jpg" alt="вид на Эльбрус">
-      <div class="element__info">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button type="button" class="element__icon"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img class="element__img" src="images/element-dombai.jpg" alt="вид на Домбай">
-      <div class="element__info">
-        <h2 class="element__title">Домбай</h2>
-        <button type="button" class="element__icon"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img class="element__img" src="images/element-elbrus.jpg" alt="вид на Эльбрус">
-      <div class="element__info">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button type="button" class="element__icon"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img class="element__img" src="images/element-dombai.jpg" alt="вид на Домбай">
-      <div class="element__info">
-        <h2 class="element__title">Домбай</h2>
-        <button type="button" class="element__icon"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img class="element__img" src="images/element-karashaevsk.jpg" alt="Карачаево-Черкесия">
-      <div class="element__info">
-        <h2 class="element__title">Карачаево-Черкесия</h2>
-        <button type="button" class="element__icon"></button>
-      </div>
-    </article>-->
   </section>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
@@ -91,8 +49,16 @@
       </form>
     </div>
   </section>
+  <section class="image-popup">
+      <div class="image-popup__container">
+        <button type="button" class="image-popup__icon-close"></button>      
+        <img class="image-popup__img" src="" alt="">
+        <p class="image-popup__title"></p>    
+      </div>
+  </section>
   <template id="element">
     <article class="element">
+      <button type="button" class="element__delete"></button>
       <img class="element__img" src="" alt="">
       <div class="element__info">
         <h2 class="element__title"></h2>
@@ -100,7 +66,7 @@
       </div>
     </article>
     <tr class="data"></tr>
-  </template>
+  </template> 
   <script src="scripts/index.js"></script>
 </body>
 </html>
