@@ -7,6 +7,7 @@ const elements = document.querySelector('.elements');
 const elementPopup = document.querySelector('form[name="element"]').closest('.popup');
 const elementInputName = document.querySelector('.popup__input_val_title');
 const elementInputLink = document.querySelector('.popup__input_val_link');
+const elementTemplate = document.querySelector('#element').content;
 
 const initialCards = [
   {
@@ -35,47 +36,36 @@ const initialCards = [
   }
 ];
 
-const renderElements = (elementsArr) => {
-  elementsArr.forEach(element => {
-    elements.insertAdjacentHTML('afterbegin', `
-      <article class="element">
-        <img class="element__img" src="${element.link}" alt="${element.name}">
-        <div class="element__info">
-          <h2 class="element__title">${element.name}</h2>
-          <button type="button" class="element__icon"></button>
-        </div>
-      </article>
-    `);
-  });
+const createElement = (element) => {
+    const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
+    elementItem.querySelector('.element__img').src=element.link;
+    elementItem.querySelector('.element__title').textContent=element.name;
+    elements.prepend(elementItem);
 };
 
-renderElements(initialCards);
+initialCards.forEach(createElement);
 
 document.body.addEventListener('submit', event => {
   event.preventDefault();
 
   const target = event.target;
-  
 
-  if (target.matches('[name="profile-info"]')) {    
+  if (target.matches('[name="profile-info"]')) {
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    profilePopup.classList.remove('popup_opened');    
+    profilePopup.classList.remove('popup_opened');
   }
 
   if (target.matches('[name="element"]')) {
-    initialCards.push({name: elementInputName.value, link: elementInputLink.value});
-    renderElements(initialCards);
+    createElement({name: elementInputName.value, link: elementInputLink.value});
     elementPopup.classList.remove('popup_opened');
     elementInputName.value = '';
     elementInputLink.value = '';
-    console.log(initialCards);
   }
-  
 });
 
 document.body.addEventListener('click', event => {
-  const target = event.target;  
+  const target = event.target;
 
   if (target.matches('.profile__edit-btn')) {
     nameInput.value = profileName.textContent;
@@ -85,9 +75,9 @@ document.body.addEventListener('click', event => {
 
   if (target.matches('.profile__add-btn')) {
     elementPopup.classList.add('popup_opened');
-  }  
+  }
 
-  if (target.matches('.popup__icon-close') || target.matches('.popup')) {    
+  if (target.matches('.popup__icon-close') || target.matches('.popup')) {
     target.closest('.popup').classList.remove('popup_opened');
   }
 });
