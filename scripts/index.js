@@ -36,14 +36,14 @@ const initialCards = [
   }
 ];
 
-const createElement = (element) => {
+const renderElement = (element) => {
     const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
     elementItem.querySelector('.element__img').src=element.link;
     elementItem.querySelector('.element__title').textContent=element.name;
     elements.prepend(elementItem);
 };
 
-initialCards.forEach(createElement);
+initialCards.forEach(renderElement);
 
 document.body.addEventListener('submit', event => {
   event.preventDefault();
@@ -57,7 +57,7 @@ document.body.addEventListener('submit', event => {
   }
 
   if (target.matches('[name="element"]')) {
-    createElement({name: elementInputName.value, link: elementInputLink.value});
+    renderElement({name: elementInputName.value, link: elementInputLink.value});
     elementPopup.classList.remove('popup_opened');
     elementInputName.value = '';
     elementInputLink.value = '';
@@ -79,6 +79,10 @@ document.body.addEventListener('click', event => {
 
   if (target.matches('.popup__icon-close') || target.matches('.popup')) {
     target.closest('.popup').classList.remove('popup_opened');
+  }
+
+  if(target.matches('.element__icon')) {
+    target.classList.toggle('element__icon-active');
   }
 });
 
