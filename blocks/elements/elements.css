@@ -5,6 +5,7 @@
   row-gap: 20px;
   max-width: 880px;
   margin: auto;
+  min-height: 38vh;
 }
 
 @media screen and (max-width: 880px) {
