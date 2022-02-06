@@ -43,35 +43,43 @@ const initialCards = [
   }
 ];
 
-const togglePopup = popup => {
-  popup.classList.toggle('popup_opened');
+const openPopup = popupElement => {
+  popupElement.classList.add('popup_opened');
+};
+const closePopup = popupElement => {
+  popupElement.classList.remove('popup_opened');
+};
+
+const handleLike = event => {
+  event.target.classList.toggle('element__icon-active');
+};
+
+const removeElement = event => {
+  event.target.closest('.element').remove();
+};
+
+const openImage = event => {
+  imagePopupImg.src = event.target.src;
+  imagePopupImg.alt = event.target.alt;
+  imagePopupSubtitle.textContent = event.target.alt;
+  openPopup(imagePopup);
 };
 
 const createCard = (element) => {
   const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
+  const elementLikeBtn = elementItem.querySelector('.element__icon');
+  const elementDelBtn = elementItem.querySelector('.element__delete');
+  const elementImg = elementItem.querySelector('.element__img');
+  const elementtitle = elementItem.querySelector('.element__title');
+  
+  elementImg.src=element.link;
+  elementImg.alt = element.name;
+  elementtitle.textContent=element.name;
 
-  elementItem.querySelector('.element__img').src=element.link;
-  elementItem.querySelector('.element__img').alt = element.name;
-  elementItem.querySelector('.element__title').textContent=element.name;
+  elementLikeBtn.addEventListener('click', handleLike);
+  elementDelBtn.addEventListener('click', removeElement);
+  elementImg.addEventListener('click', openImage);
 
-  elementItem.addEventListener('click', event => {
-    const target = event.target;
- 
-    if(target.matches('.element__icon')) {
-      target.classList.toggle('element__icon-active');
-    }
-
-    if(target.matches('.element__delete')) {
-      target.closest('.element').remove();
-    }
-
-    if(target.matches('.element__img')) {
-      imagePopupImg.src = target.src;
-      imagePopupImg.alt = target.alt;
-      imagePopupSubtitle.textContent = target.alt;
-      togglePopup(imagePopup);
-    }
-  });
   return elementItem;
 };
 
@@ -82,20 +90,20 @@ initialCards.forEach((element) => {
 profileEditBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  togglePopup(profilePopup);
+  openPopup(profilePopup);
 });
 
 elementAddBtn.addEventListener('click', () => {
   elementInputName.value = '';
   elementInputLink.value = '';
-  togglePopup(elementPopup);
+  openPopup(elementPopup);
 });
 
 document.body.addEventListener('click', event => {
   const target = event.target;
 
   if (target.matches('.popup__icon-close') || target.matches('.popup')) {
-    togglePopup(target.closest('.popup'));
+    closePopup(target.closest('.popup'));
   }
 });
 
@@ -104,7 +112,7 @@ profileForm.addEventListener('submit', event =>{
   const target = event.target;    
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  togglePopup(profilePopup);  
+  closePopup(profilePopup);  
 });
 
 elementForm.addEventListener('submit', event =>{
@@ -114,7 +122,7 @@ elementForm.addEventListener('submit', event =>{
     link: elementInputLink.value
   };   
   elements.prepend(createCard(element));  
-  togglePopup(elementPopup);  
+  closePopup(elementPopup);  
   elementInputName.value = '';
   elementInputLink.value = '';  
 });
