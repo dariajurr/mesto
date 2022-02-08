@@ -2,15 +2,15 @@ const profileEditBtn = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
 const profilePopup = document.querySelector('.popup_type_profile');
-const profileForm = document.querySelector('form[name="profile-info"]');
-const nameInput = document.querySelector('.popup__input_val_name');
-const jobInput = document.querySelector('.popup__input_val_job');
+const profileForm = document.forms.profile;
+const nameInput = profileForm.elements.name;
+const jobInput = profileForm.elements.job;
 const elementAddBtn = document.querySelector('.profile__add-btn');
 const elements = document.querySelector('.elements');
 const elementPopup = document.querySelector('.popup_type_element');
-const elementForm = document.querySelector('form[name="element"]'); 
-const elementInputName = document.querySelector('.popup__input_val_title');
-const elementInputLink = document.querySelector('.popup__input_val_link');
+const elementForm = document.forms.element; 
+const elementInputName = elementForm.elements.title;
+const elementInputLink = elementForm.elements.link;
 const elementTemplate = document.querySelector('#element').content;
 const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupImg = document.querySelector('.popup__img');
@@ -107,6 +107,27 @@ document.body.addEventListener('click', event => {
   }
 });
 
+//Вот это приведи в порядок
+/*
+const popupCheck = (e) => {    
+  let activePopup;
+  document.querySelectorAll('.popup').forEach(elem => {
+    console.log(elem.classList.contains('popup_opened'));
+    if(elem.classList.contains('popup_opened')){
+      activePopup = elem;
+      console.log(activePopup);
+    }
+  });
+  return activePopup;
+};
+
+document.body.addEventListener('keydown', event => {
+  const i = popupCheck();
+  if (event.key === 'Escape' && i) {
+    closePopup(i);
+  } 
+});*/
+
 profileForm.addEventListener('submit', event =>{
   event.preventDefault();
   const target = event.target;    
@@ -126,6 +147,3 @@ elementForm.addEventListener('submit', event =>{
   elementInputName.value = '';
   elementInputLink.value = '';  
 });
-
-
-

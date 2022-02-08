@@ -6,8 +6,7 @@
   height: 50px;
   font-size: 18px;
   line-height: 1.22;
-  color: #fff;
-  margin-top: 18px;
+  color: #fff;  
   cursor: pointer;
   transition: opacity .3s ease;
 }
