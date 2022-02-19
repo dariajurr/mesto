@@ -91,12 +91,24 @@ profileEditBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(profilePopup);
+
+  document.body.addEventListener('keydown', event => {  
+    if (event.key === 'Escape') {    
+      closePopup(profilePopup);
+    } 
+  });  
 });
 
 elementAddBtn.addEventListener('click', () => {
   elementInputName.value = '';
   elementInputLink.value = '';
   openPopup(elementPopup);
+
+  document.body.addEventListener('keydown', event => {  
+    if (event.key === 'Escape') {    
+      closePopup(elementPopup);
+    } 
+  });
 });
 
 document.body.addEventListener('click', event => {
@@ -106,27 +118,6 @@ document.body.addEventListener('click', event => {
     closePopup(target.closest('.popup'));
   }
 });
-
-//Вот это приведи в порядок
-/*
-const popupCheck = (e) => {    
-  let activePopup;
-  document.querySelectorAll('.popup').forEach(elem => {
-    console.log(elem.classList.contains('popup_opened'));
-    if(elem.classList.contains('popup_opened')){
-      activePopup = elem;
-      console.log(activePopup);
-    }
-  });
-  return activePopup;
-};
-
-document.body.addEventListener('keydown', event => {
-  const i = popupCheck();
-  if (event.key === 'Escape' && i) {
-    closePopup(i);
-  } 
-});*/
 
 profileForm.addEventListener('submit', event =>{
   event.preventDefault();

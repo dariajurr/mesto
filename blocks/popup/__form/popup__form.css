@@ -7,13 +7,14 @@
   /*grid-area: content;*/
   display: flex;
   flex-direction: column;
-  min-width: 430px;
+  width: 430px;
   min-height: 330px; 
 }
 
 @media screen and (max-width: 500px) {
   .popup__form {
     padding: 25px 20px;
+    width: 100%;
     min-width: 282px;
     min-height: 322px;
   }
