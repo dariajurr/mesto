@@ -15,6 +15,7 @@ const elementTemplate = document.querySelector('#element').content;
 const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupImg = document.querySelector('.popup__img');
 const imagePopupSubtitle = document.querySelector('.popup__subtitle');
+const popups = document.querySelectorAll('.popup');
 
 const initialCards = [
   {
@@ -43,11 +44,21 @@ const initialCards = [
   }
 ];
 
+const closeByEscape = evt => {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+};
+
 const openPopup = popupElement => {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 };
+
 const closePopup = popupElement => {
   popupElement.classList.remove('popup_opened');
+   document.removeEventListener('keydown', closeByEscape); 
 };
 
 const handleLike = event => {
@@ -65,7 +76,7 @@ const openImage = event => {
   openPopup(imagePopup);
 };
 
-const createCard = (element) => {
+const createCard = element => {
   const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
   const elementLikeBtn = elementItem.querySelector('.element__icon');
   const elementDelBtn = elementItem.querySelector('.element__delete');
@@ -90,34 +101,22 @@ initialCards.forEach((element) => {
 profileEditBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  openPopup(profilePopup);
-
-  document.body.addEventListener('keydown', event => {  
-    if (event.key === 'Escape') {    
-      closePopup(profilePopup);
-    } 
-  });  
+  openPopup(profilePopup);  
 });
 
 elementAddBtn.addEventListener('click', () => {
   elementInputName.value = '';
   elementInputLink.value = '';
   openPopup(elementPopup);
+});
 
-  document.body.addEventListener('keydown', event => {  
-    if (event.key === 'Escape') {    
-      closePopup(elementPopup);
-    } 
+popups.forEach(popup => {
+  popup.addEventListener('click', event => {
+    if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__icon-close')) {
+      closePopup(popup);
+    }
   });
-});
-
-document.body.addEventListener('click', event => {
-  const target = event.target;
-
-  if (target.matches('.popup__icon-close') || target.matches('.popup')) {
-    closePopup(target.closest('.popup'));
-  }
-});
+}) ;
 
 profileForm.addEventListener('submit', event =>{
   event.preventDefault();
