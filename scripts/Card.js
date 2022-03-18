@@ -29,18 +29,21 @@ class Card {
   }
 
   _handleLike() {
-    this._element.querySelector('.element__icon').classList.toggle('element__icon-active');
+    this.elementIcon.classList.toggle('element__icon-active');
   }
 
   _removeElement() {
-    this._element.closest('.element').remove();
+    this._element.remove();
   }
 
   generateCard() {
     this._element = this._getTemplate();
+    this.elementIcon = this._element.querySelector('.element__icon');
+
     this._setEventListeners();
     
     this._element.querySelector('.element__img').src = this._link;
+    this._element.querySelector('.element__img').alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
     
     return this._element;
