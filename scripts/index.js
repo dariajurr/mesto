@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const profileEditBtn = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
@@ -11,11 +14,19 @@ const elementPopup = document.querySelector('.popup_type_element');
 const elementForm = document.forms.element; 
 const elementInputName = elementForm.elements.title;
 const elementInputLink = elementForm.elements.link;
-const elementTemplate = document.querySelector('#element').content;
 const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupImg = document.querySelector('.popup__img');
 const imagePopupSubtitle = document.querySelector('.popup__subtitle');
 const popups = document.querySelectorAll('.popup');
+const formList = Array.from(document.forms);
+
+const settings = {
+  input : '.popup__input',
+  btn: '.popup__btn',
+  btnInactive:'popup__btn_inactive',
+  inputTypeError: 'popup__input_type_error',
+  inputErrorActive: 'popup__input-error_active'
+};
 
 const initialCards = [
   {
@@ -61,42 +72,12 @@ const closePopup = popupElement => {
    document.removeEventListener('keydown', closeByEscape); 
 };
 
-const handleLike = event => {
-  event.target.classList.toggle('element__icon-active');
-};
-
-const removeElement = event => {
-  event.target.closest('.element').remove();
-};
-
 const openImage = event => {
   imagePopupImg.src = event.target.src;
   imagePopupImg.alt = event.target.alt;
   imagePopupSubtitle.textContent = event.target.alt;
   openPopup(imagePopup);
 };
-
-const createCard = element => {
-  const elementItem = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementLikeBtn = elementItem.querySelector('.element__icon');
-  const elementDelBtn = elementItem.querySelector('.element__delete');
-  const elementImg = elementItem.querySelector('.element__img');
-  const elementtitle = elementItem.querySelector('.element__title');
-  
-  elementImg.src=element.link;
-  elementImg.alt = element.name;
-  elementtitle.textContent=element.name;
-
-  elementLikeBtn.addEventListener('click', handleLike);
-  elementDelBtn.addEventListener('click', removeElement);
-  elementImg.addEventListener('click', openImage);
-
-  return elementItem;
-};
-
-initialCards.forEach((element) => {
-  elements.prepend(createCard(element));
-});
 
 profileEditBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
@@ -120,7 +101,7 @@ popups.forEach(popup => {
 
 profileForm.addEventListener('submit', event =>{
   event.preventDefault();
-  const target = event.target;    
+ 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(profilePopup);  
@@ -128,12 +109,31 @@ profileForm.addEventListener('submit', event =>{
 
 elementForm.addEventListener('submit', event =>{
   event.preventDefault();
+  
   const element = {
     name: elementInputName.value, 
     link: elementInputLink.value
-  };   
-  elements.prepend(createCard(element));  
+  };
+
+  const card = new Card(element, '#element', openImage);
+  const cardElement = card.generateCard();
+
+  elements.prepend(cardElement);  
+
   closePopup(elementPopup);  
   elementInputName.value = '';
   elementInputLink.value = '';  
+
+});
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#element', openImage);
+  const cardElement = card.generateCard();
+
+  elements.prepend(cardElement);
+}); 
+
+formList.forEach((formElement) => {  
+  const forVal = new FormValidator(settings, formElement);  
+  forVal.enableValidation();
 });
