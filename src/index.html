@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
+  
   <title>Mesto Russia</title>
 </head>
 <body class="root">
   <header class="header">
     <a href="#" class="header__link">
-      <img src="images/logo.svg" alt="Логотип Mesto Russia" class="header__logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип Mesto Russia" class="header__logo">
     </a>
   </header>
   <section class="profile">
-    <img src="images/profile_photo.jpg" class="profile__img" alt="Жак-Ив Кусто">
+    <img src="<%=require('./images/profile_photo.jpg')%>" class="profile__img" alt="Жак-Ив Кусто">
     <div class="profile__info">
       <h1 class="profile__title">Жак-Ив Кусто</h1>
       <button type="button" class="profile__edit-btn"></button>
@@ -50,7 +50,7 @@
       <form name="element" class="popup__form" novalidate>
         <h2 class="popup__title">Новое место</h2>
         <div class="popup__input-span-group">
-          <input id="input-title" type="text" name="title" class="popup__input popup__input_val_title" placeholder="Название" minlength="2" maxlength="30" required>
+          <input id="input-title" type="text" name="name" class="popup__input popup__input_val_title" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="input-title-error popup__input-error">&nbsp;</span>
         </div>        
         <div class="popup__input-span-group">
@@ -79,9 +79,5 @@
     </article>
     <tr class="data"></tr>
   </template> 
-  <script type="module" src="scripts/index.js"></script>
-  <script type="module" src="scripts/initialCards.js"></script>
-  <script type="module" src="scripts/Card.js"></script>
-  <script type="module" src="scripts/FormValidator.js"></script>
 </body>
 </html>
