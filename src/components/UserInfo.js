@@ -4,8 +4,7 @@ export default class UserInfo {
     this._profileJob = document.querySelector(profileJob);
   }
 
-  getUserInfo() {
-    console.log({name: this._profileName.textContent, job: this._profileJob.textContent});
+  getUserInfo() {    
     return {name: this._profileName.textContent, job: this._profileJob.textContent};
   }
 

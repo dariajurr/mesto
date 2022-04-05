@@ -29,7 +29,7 @@ class Card {
   }
 
   _handleLike() {
-    this.elementIcon.classList.toggle('element__icon-active');
+    this._likeButton.classList.toggle('element__icon-active');
   }
 
   _removeElement() {
@@ -38,13 +38,14 @@ class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this.elementIcon = this._element.querySelector('.element__icon');
+    this._likeButton = this._element.querySelector('.element__icon');    
+    this._cardImage = this._element.querySelector('.element__img');
+    
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._element.querySelector('.element__title').textContent = this._name;
 
     this._setEventListeners();
-    
-    this._element.querySelector('.element__img').src = this._link;
-    this._element.querySelector('.element__img').alt = this._name;
-    this._element.querySelector('.element__title').textContent = this._name;
     
     return this._element;
   }
