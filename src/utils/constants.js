@@ -2,6 +2,7 @@
 export const profileEditBtn = document.querySelector('.profile__edit-btn');
 export const profileForm = document.forms.profile;
 export const elementAddBtn = document.querySelector('.profile__add-btn');
+export const avatarEditBtn = document.querySelector('.profile__avatar-btn');
 export const elementForm = document.forms.element; 
 export const settings = {
   formSelector: '.popup__form',

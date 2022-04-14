@@ -18,11 +18,14 @@
       </a>
     </header>
     <section class="profile">
-      <img
-        src="<%=require('./images/profile_photo.jpg')%>"
-        class="profile__img"
-        alt="Жак-Ив Кусто"
-      />
+      <div class="profile__avatar-group">
+        <img
+          src="<%=require('./images/profile_photo.jpg')%>"
+          class="profile__img"
+          alt="Жак-Ив Кусто"
+        />
+        <button type="button" class="profile__avatar-btn"></button>
+      </div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-btn"></button>
@@ -111,6 +114,26 @@
           alt=""
         />
         <p class="popup__subtitle">Архыз</p>
+      </div>
+    </section>
+    <section class="popup popup_type_avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__icon-close"></button>
+        <form name="avatar" class="popup__form" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <div class="popup__input-span-group">
+            <input
+              id="input-link"
+              type="url"
+              name="link"
+              class="popup__input popup__input_val_link"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="input-link-error popup__input-error">&nbsp;</span>
+          </div>
+          <button type="submit" class="popup__btn">Сохранить</button>
+        </form>
       </div>
     </section>
     <section class="popup popup_type_delete">

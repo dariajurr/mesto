@@ -2,6 +2,7 @@
 import {
   profileEditBtn,
   elementAddBtn,
+  avatarEditBtn,
   settings
 } from '../utils/constants.js';
 
@@ -52,8 +53,7 @@ const enableValidations = (config) => {
     const formName = formElement.getAttribute('name');   
     formValidators[formName] = validator;    
    validator.enableValidation();
-  });
-  
+  });  
 };
 
 enableValidations(settings);
@@ -64,18 +64,44 @@ const userInfo = new UserInfo('.profile__title','.profile__subtitle', '.profile_
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-const handleFormSubmitProfile = (data) =>{   
-  api.setProfileInfo(data);
-  userInfo.setUserInfo(data);
-  profilePopup.close();
+const handleFormSubmitProfile = (data, btn) =>{  
+  btn.textContent = 'Сохранение...';
+  api.setProfileInfo(data)
+  .then(res => {    
+    userInfo.setUserInfo(res);
+    profilePopup.close();
+    })
+    .catch(console.log)
+    .finally(() => {
+      btn.textContent = 'Сохранить';
+    });
 };
 
-const handleFormSubmitElem = (data) => {   
+const handleFormSubmitElem = (data, btn) => {  
+  btn.textContent = 'Сохранение...'; 
   api.setCard(data)
     .then(res=> {
       cardList.addItem(res);
       popupElement.close();
+    })
+    .catch(console.log)
+    .finally(() => {
+      btn.textContent = 'Создать';
     });
+};
+
+const handleFormSubmitAvatar = (data, btn) => {
+  btn.textContent = 'Сохранение...';
+  api.changeAvatar(data.link)
+  .then(res=>{
+    userInfo.setAvatar(res);
+    popupAvatar.close();
+  })
+  .catch(console.log)
+  .finally(() => {
+    btn.textContent = 'Сохранить';
+  });   
+ 
 };
 
 const handleFormDelete = (elemID, element) => {  
@@ -84,12 +110,15 @@ const handleFormDelete = (elemID, element) => {
   element.remove();  
 };
 
-const profilePopup = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile, formValidators.profile.resetValidation.bind(formValidators.profile));
+const profilePopup = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile, formValidators.profile.resetValidation);
 profilePopup.setEventListeners();
 
 
-const popupElement = new PopupWithForm('.popup_type_element', handleFormSubmitElem, formValidators.element.resetValidation.bind(formValidators.element));
+const popupElement = new PopupWithForm('.popup_type_element', handleFormSubmitElem, formValidators.element.resetValidation);
 popupElement.setEventListeners();
+
+const popupAvatar = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar, formValidators.avatar.resetValidation);
+popupAvatar.setEventListeners();
 
 const popupDelete = new PopupWithConfirm('.popup_type_delete', handleFormDelete);
 popupDelete.setEventListeners();
@@ -101,3 +130,5 @@ profileEditBtn.addEventListener('click', () => {
 });
 
 elementAddBtn.addEventListener('click', popupElement.open.bind(popupElement));
+
+avatarEditBtn.addEventListener('click', popupAvatar.open.bind(popupAvatar));

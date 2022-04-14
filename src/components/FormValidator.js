@@ -8,6 +8,7 @@ class FormValidator {
     this._formElement = formElement;
     this._inputList = Array.from(this._formElement.querySelectorAll(this._input)); 
     this._buttonElement = this._formElement.querySelector(this._btn);    
+    this.resetValidation = this.resetValidation.bind(this); 
   }
 
   _hasInvalidInput() {

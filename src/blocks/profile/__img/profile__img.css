@@ -3,5 +3,10 @@
   height: 120px;
   border-radius: 50%;  
   object-fit: cover;
+  transition: filter .2s linear;
+}
+
+.profile__avatar-group:hover > .profile__img {
+	filter: brightness(20%);
 }
 
