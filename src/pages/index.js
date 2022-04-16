@@ -1,4 +1,3 @@
-
 import {
   profileEditBtn,
   elementAddBtn,
@@ -26,25 +25,27 @@ const api = new Api({
   }
 });
 
-let cardList;
+
+const createCard = (cardSet, myID) => { 
+  const card = new Card(cardSet, myID, '#element', popupImage.open.bind(popupImage), popupDelete.open.bind(popupDelete), api.setLike.bind(api), api.deleteLike.bind(api)); 
+  
+  return card.generateCard(); 
+}; 
+
+
+const cardList = new Section({renderer: createCard}, '.elements');
 
 
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
-  .then(([res, data]) => {
+  .then(([res, data]) => {     
     userInfo.setUserInfo(res);
-    userInfo.setAvatar(res);
-
-    cardList = new Section({  
-      items: data,
-      renderer: (cardSet) => {
-        const card = new Card(cardSet, res._id, '#element', popupImage.open.bind(popupImage), popupDelete.open.bind(popupDelete), api.setLike.bind(api), api.deleteLike.bind(api));
-        return card.generateCard();
-      }  
-    }, '.elements');
-    cardList.renderItems();    
-  });
+    userInfo.setAvatar(res);    
+    cardList.renderItems(data, res._id);    
+  })
+  .catch(console.log);
 
 const formValidators = {};
+
 
 const enableValidations = (config) => {  
   const formList = Array.from(document.querySelectorAll(config.formSelector));  
@@ -58,8 +59,8 @@ const enableValidations = (config) => {
 
 enableValidations(settings);
 
-const userInfo = new UserInfo('.profile__title','.profile__subtitle', '.profile__img');
 
+const userInfo = new UserInfo('.profile__title','.profile__subtitle', '.profile__img');
 
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
@@ -80,8 +81,8 @@ const handleFormSubmitProfile = (data, btn) =>{
 const handleFormSubmitElem = (data, btn) => {  
   btn.textContent = 'Сохранение...'; 
   api.setCard(data)
-    .then(res=> {
-      cardList.addItem(res);
+    .then(res=> {      
+      cardList.addItem(createCard(res, res.owner._id));
       popupElement.close();
     })
     .catch(console.log)
@@ -92,7 +93,7 @@ const handleFormSubmitElem = (data, btn) => {
 
 const handleFormSubmitAvatar = (data, btn) => {
   btn.textContent = 'Сохранение...';
-  api.changeAvatar(data.link)
+  api.changeAvatar(data.avatar)
   .then(res=>{
     userInfo.setAvatar(res);
     popupAvatar.close();
@@ -104,10 +105,10 @@ const handleFormSubmitAvatar = (data, btn) => {
  
 };
 
-const handleFormDelete = (elemID, element) => {  
+const handleFormDelete = (elemID, elementDOM, element) => { 
   api.deleteCard(elemID); 
   popupDelete.close();
-  element.remove();  
+  element.removeElement(elementDOM);  
 };
 
 const profilePopup = new PopupWithForm('.popup_type_profile', handleFormSubmitProfile, formValidators.profile.resetValidation);
@@ -132,3 +133,6 @@ profileEditBtn.addEventListener('click', () => {
 elementAddBtn.addEventListener('click', popupElement.open.bind(popupElement));
 
 avatarEditBtn.addEventListener('click', popupAvatar.open.bind(popupAvatar));
+
+
+
